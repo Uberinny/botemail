@@ -1,0 +1,83 @@
+# Running Bot Locally (For Testing)
+
+Since the bot token is NOT hardcoded in the script (for security), you need to set it as an environment variable to test locally.
+
+## Windows
+
+### Option 1: Set for current session only
+Open Command Prompt in your bot folder:
+```cmd
+set BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+python discord_bot.py
+```
+
+### Option 2: Create a batch file
+Create a file named `run_bot.bat`:
+```batch
+@echo off
+set BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+python discord_bot.py
+pause
+```
+Then just double-click `run_bot.bat` to start the bot.
+
+### Option 3: PowerShell
+```powershell
+$env:BOT_TOKEN="YOUR_DISCORD_BOT_TOKEN_HERE"
+python discord_bot.py
+```
+
+---
+
+## Linux / Mac
+
+### Option 1: Set for current session only
+Open Terminal in your bot folder:
+```bash
+export BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+python discord_bot.py
+```
+
+### Option 2: Create a shell script
+Create a file named `run_bot.sh`:
+```bash
+#!/bin/bash
+export BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+python discord_bot.py
+```
+
+Make it executable:
+```bash
+chmod +x run_bot.sh
+./run_bot.sh
+```
+
+---
+
+## Important Notes
+
+⚠️ **Never commit your token to GitHub!**
+- The token is only in environment variables
+- Safe to push code to GitHub
+- Make repository PRIVATE for extra security
+
+✅ **For Railway deployment:**
+- You don't need to do any of this locally
+- Just set BOT_TOKEN in Railway Variables
+- Railway handles everything automatically
+
+🔒 **Security Best Practice:**
+- Token is NOT in the code
+- Token is NOT in any files
+- Token is only in environment variables or Railway Variables
+- This is the secure way to handle secrets!
+
+---
+
+## Quick Test Flow
+
+1. Set your BOT_TOKEN environment variable (see above)
+2. Run: `python discord_bot.py`
+3. Should see: "✅ Logged in as YourBotName#1234"
+4. Test your commands in Discord
+5. When ready, deploy to Railway!

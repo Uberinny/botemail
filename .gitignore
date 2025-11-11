@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local testing scripts (if you create run_bot.bat or run_bot.sh with tokens)
+run_bot.bat
+run_bot.sh
+
+# Security Note:
+# ✅ Bot token is NOT in the code - it's secure!
+# ✅ Token is only stored in Railway Variables
+# ✅ Safe to push this code to public GitHub repos
+
+# Optional: Uncomment to keep VCC/email lists private
+# vcc_list.txt
+# email_list.txt
+# email_list_20off25.txt

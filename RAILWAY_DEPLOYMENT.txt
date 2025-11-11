@@ -1,0 +1,165 @@
+# Deploy Discord Bot to Railway
+
+## IMPORTANT: Set Your Bot Token First!
+
+Before deploying, you MUST add your bot token as an environment variable in Railway.
+
+### Step 1: Deploy on Railway
+1. Go to https://railway.app
+2. Click "Start a New Project"
+3. Click "Deploy from GitHub repo" (or use CLI method below)
+4. Select your Discord bot repository
+5. Railway will automatically detect Python and build using nixpacks
+
+### Step 2: Add Bot Token (CRITICAL!)
+1. In your Railway project, click on your service
+2. Go to "Variables" tab
+3. Click "+ New Variable"
+4. Add:
+   - **Variable name:** `BOT_TOKEN`
+   - **Value:** Your full Discord bot token
+5. Click "Add"
+6. Railway will automatically redeploy with the token
+
+### Step 3: Verify Deployment
+1. Go to "Deployments" tab
+2. Wait for deployment to complete
+3. Click on latest deployment and check "View Logs"
+4. You should see: "✅ Logged in as YourBotName#1234"
+
+---
+
+## Important Files for Railway:
+- `nixpacks.toml` - Tells Railway to use Python 3.11
+- `Procfile` - Tells Railway how to run your bot
+- `requirements.txt` - Python dependencies
+
+---
+
+## Method 1: Deploy from GitHub (Recommended)
+
+### Step 1: Create GitHub Repository
+1. Go to https://github.com and create a new repository
+2. Name it something like "discord-bot" (make it PRIVATE to protect your token)
+3. Don't initialize with README
+
+### Step 2: Upload Your Files to GitHub
+Open Command Prompt/Terminal in your bot folder and run:
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+```
+
+**IMPORTANT:** Even though your token is in the code as a fallback, Railway will use the environment variable you set, which is more secure.
+
+### Step 3: Deploy on Railway (See steps above)
+Follow the steps at the top of this guide to deploy and add your BOT_TOKEN variable.
+
+---
+
+## Method 2: Deploy with Railway CLI
+
+### Step 1: Install Railway CLI
+```bash
+npm i -g @railway/cli
+```
+
+Or download from: https://docs.railway.app/develop/cli
+
+### Step 2: Login to Railway
+```bash
+railway login
+```
+
+### Step 3: Initialize Project
+In your bot folder:
+```bash
+railway init
+```
+
+### Step 4: Add Bot Token Variable
+```bash
+railway variables set BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+```
+
+### Step 5: Deploy
+```bash
+railway up
+```
+
+---
+
+## Method 3: Deploy via Railway Dashboard (No Git)
+
+### Step 1: Create a New Project
+1. Go to https://railway.app
+2. Click "Start a New Project"
+3. Click "Empty Project"
+
+### Step 2: Add Service
+1. Click "+ New"
+2. Select "Empty Service"
+
+### Step 3: Upload Files
+1. Click on your service
+2. Go to "Settings" tab
+3. Under "Source", you can connect GitHub or use Railway CLI
+
+**Note:** Railway doesn't support direct file upload through dashboard. You must use GitHub or Railway CLI.
+
+---
+
+## Important Notes
+
+### Files Included for Railway:
+- `Procfile` - Tells Railway how to run your bot
+- `requirements.txt` - Python dependencies
+- `runtime.txt` - Python version specification
+- All your bot files
+
+### Your Bot Will:
+✅ Run 24/7 automatically
+✅ Auto-restart if it crashes
+✅ Use Railway's free tier (500 hours/month)
+✅ Keep all your data files (VCC lists, emails, settings)
+
+### Monitoring Your Bot:
+1. Go to your Railway project dashboard
+2. Click on your service
+3. Check "Logs" tab to see bot activity
+4. You should see "✅ Logged in as YourBotName#1234"
+
+### Cost:
+- Railway Free Tier: 500 hours/month (about 20 days)
+- For 24/7 uptime: Upgrade to Hobby plan ($5/month)
+
+### Troubleshooting:
+
+**Bot not staying online:**
+- Make sure Message Content Intent is enabled in Discord Developer Portal
+- Check Railway logs for errors
+
+**"401 Unauthorized" error in logs:**
+- Your token expired, update it in `discord_bot.py`
+- Redeploy after updating
+
+**Files not persisting:**
+- Railway uses ephemeral storage - files reset on redeploy
+- For persistent storage, consider using Railway's database add-ons
+
+---
+
+## Quick Start (Recommended Path)
+
+1. **Create GitHub account** (if you don't have one)
+2. **Create new repository** on GitHub
+3. **Upload your bot files** using GitHub Desktop or git commands
+4. **Go to Railway.app** and sign up
+5. **Click "Deploy from GitHub"** and select your repo
+6. **Done!** Your bot is now online 24/7
+
+Your Railway dashboard will show deployment status and logs.

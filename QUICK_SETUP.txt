@@ -1,0 +1,83 @@
+╔═══════════════════════════════════════════════════════════╗
+║           RAILWAY DEPLOYMENT - QUICK SETUP                ║
+╚═══════════════════════════════════════════════════════════╝
+
+🔒 SECURITY: Your bot token is NOT in the code - it's secure!
+
+📝 STEP-BY-STEP:
+
+1️⃣  CREATE GITHUB REPO
+   → Go to github.com
+   → New repository (PUBLIC or PRIVATE - your choice!)
+   → Name: discord-bot
+
+2️⃣  UPLOAD FILES
+   → Open terminal in bot folder
+   → Run:
+     git init
+     git add .
+     git commit -m "Initial commit"
+     git branch -M main
+     git remote add origin https://github.com/USERNAME/REPO.git
+     git push -u origin main
+
+3️⃣  DEPLOY TO RAILWAY
+   → Go to railway.app
+   → "Start a New Project"
+   → "Deploy from GitHub repo"
+   → Select your repository
+
+4️⃣  ADD BOT TOKEN (MOST IMPORTANT!)
+   → Click on your service in Railway
+   → Go to "Variables" tab
+   → Click "+ New Variable"
+   → Name: BOT_TOKEN
+   → Value: YOUR_DISCORD_BOT_TOKEN
+   → Click "Add"
+   → Wait for auto-redeploy
+
+5️⃣  VERIFY IT'S RUNNING
+   → Go to "Deployments" tab
+   → Click latest deployment
+   → Check "Logs"
+   → Should see: "✅ Logged in as YourBotName"
+
+✅ DONE! Your bot is now running 24/7 on Railway!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  IMPORTANT NOTES:
+
+• Token is NOT in code - 100% secure! ✅
+• Railway free tier: 500 hours/month (~20 days)
+• For 24/7: Upgrade to $5/month
+• Always set BOT_TOKEN in Railway Variables
+• Files (VCC lists, emails) will reset on redeploy
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💻 LOCAL TESTING:
+
+Want to test locally before deploying?
+→ Read: LOCAL_TESTING.txt for instructions
+→ You'll need to set BOT_TOKEN as environment variable
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TROUBLESHOOTING:
+
+Problem: Bot not starting
+→ Check Railway logs for errors
+→ Verify BOT_TOKEN is set in Variables
+
+Problem: 401 Unauthorized
+→ Token expired, reset in Discord Developer Portal
+→ Update BOT_TOKEN variable in Railway
+
+Problem: Commands not working
+→ Enable "Message Content Intent" in Discord Dev Portal
+→ Wait 5-10 mins for Discord to sync commands
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For detailed instructions, read: RAILWAY_DEPLOYMENT.txt
