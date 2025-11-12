@@ -136,6 +136,7 @@ atexit.register(save_data)
 # Commands
 @tree.command(name='addvcc', description='Add one or multiple VCCs (format: card,cvv...)')
 @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+@app_commands.user_install()
 async def addvcc(interaction: discord.Interaction, data: str):
     added = 0
     for entry in data.split():
@@ -208,29 +209,29 @@ async def load20off20(interaction: discord.Interaction, file: discord.Attachment
 @app_commands.user_install()
 async def grab(interaction: discord.Interaction, link: str):
     if not vcc_list or not email_list:
-        return await interaction.response.send_message('VCC or Email list is empty.')
+        return await interaction.response.send_message('VCC or Email list is empty.', ephemeral=True)
     card, cvv = vcc_list.pop(0).split(',')
     email = email_list.pop(0)
     save_data()
-    await interaction.response.send_message(f"{link},{card},{expiry},{cvv},{zip_code},{email}")
+    await interaction.response.send_message(f"`{link},{card},{expiry},{cvv},{zip_code},{email}`")
 
 @tree.command(name='grab20off20combo', description='Get next combo with Uber Eats group link for 20 off 20')
 @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.user_install()
 async def grab20off20(interaction: discord.Interaction, link: str):
     if not vcc_list or not email_list_20off20:
-        return await interaction.response.send_message('VCC or 20off20 list empty.')
+        return await interaction.response.send_message('VCC or 20off20 list empty.', ephemeral=True)
     card, cvv = vcc_list.pop(0).split(',')
     email = email_list_20off20.pop(0)
     save_data()
-    await interaction.response.send_message(f"{link},{card},{expiry},{cvv},{zip_code},{email}")
+    await interaction.response.send_message(f"`{link},{card},{expiry},{cvv},{zip_code},{email}`")
 
 @tree.command(name='grabvcc', description='Get next VCC formatted')
 @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.user_install()
 async def grabvcc(interaction: discord.Interaction):
     if not vcc_list:
-        return await interaction.response.send_message('VCC list empty.')
+        return await interaction.response.send_message('VCC list empty.', ephemeral=True)
     card, cvv = vcc_list.pop(0).split(',')
     save_data()
     await interaction.response.send_message(f"`{card},{expiry},{cvv},{zip_code}`")
@@ -240,7 +241,7 @@ async def grabvcc(interaction: discord.Interaction):
 @app_commands.user_install()
 async def grabemail(interaction: discord.Interaction):
     if not email_list:
-        return await interaction.response.send_message('25 off 25 list empty.')
+        return await interaction.response.send_message('25 off 25 list empty.', ephemeral=True)
     e = email_list.pop(0)
     save_data()
     await interaction.response.send_message(f"Email: {e}")
@@ -250,7 +251,7 @@ async def grabemail(interaction: discord.Interaction):
 @app_commands.user_install()
 async def grabonly20off20(interaction: discord.Interaction):
     if not email_list_20off20:
-        return await interaction.response.send_message('20off20 list empty.')
+        return await interaction.response.send_message('20off20 list empty.', ephemeral=True)
     e = email_list_20off20.pop(0)
     save_data()
     await interaction.response.send_message(f"20off20 Email: {e}")
@@ -260,7 +261,7 @@ async def grabonly20off20(interaction: discord.Interaction):
 @app_commands.user_install()
 async def status(interaction: discord.Interaction):
     await interaction.response.send_message(
-        f"✅ Available:\n- VCCs: {len(vcc_list)}\n- 25off25: {len(email_list_25off25)}\n- 20off20: {len(email_list_20off20)}"
+        f"Available:\n- VCCs: {len(vcc_list)}\n- 25off25: {len(email_list)}\n- 20off20: {len(email_list_20off20)}"
     )
 
 @tree.command(name='setzip', description='Set ZIP code')
@@ -308,11 +309,11 @@ async def delete20off20email(interaction: discord.Interaction):
 @bot.event
 async def on_ready():
     load_data()
-    print(f"✅ Logged in as {bot.user}")
+    print(f"✓ Logged in as {bot.user}")
     print(f"Bot is in {len(bot.guilds)} guild(s)")
     try:
         synced = await tree.sync()
-        print(f"✅ Synced {len(synced)} command(s)")
+        print(f"✓ Synced {len(synced)} command(s)")
     except Exception as e:
         print(f"Failed to sync commands: {e}")
 
